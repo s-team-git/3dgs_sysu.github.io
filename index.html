@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>3DGS 轻量化建图 - 张成玮</title>
+  <link rel="stylesheet" href="style.css">
+  
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+
+  <header>
+    <h1>面向机器人建图的 3DGS 轻量化</h1>
+    <div class="subtitle">基于时空与尺度双重先验的物理约束剪枝 | 张成玮 (中山大学)</div>
+  </header>
+
+  <main>
+    <h2 class="section-title">研究背景与动机 (Motivation)</h2>
+    <p class="center-text">
+      尽管 3D Gaussian Splatting (3DGS) 在新型视图合成任务中展现了极高的渲染效率，但在无约束的实景建图和有界合成场景中，其底层优化机制存在显著的几何缺陷。3DGS 倾向于在无有效纹理的空白区域生成大量冗余的、形状极度拉长的高斯椭球（悬浮与高光伪影）。<br><br>
+      此类悬浮伪影导致参数量过度膨胀，且引发严重的物理几何结构畸变。在下游机器人主动 SLAM 和局部路径规划中，这些视觉伪影会被规划器误判为物理障碍物，引发导航失效。
+    </p>
+
+    <h2 class="section-title">核心方法 (Proposed Method)</h2>
+    <p class="center-text">
+      本研究提出了一种计算轻量且高效的<strong>时空-尺度双重距离感知正则化</strong>策略。通过在损失函数层面引入物理几何约束，实现了从“纯光度拟合”向“物理几何保真”的优化范式转移。
+    </p>
+
+    <div class="method-grid">
+      <div class="method-item">
+        <div class="method-icon">📍</div>
+        <div>
+          <strong>空间先验 (Spatial Prior)</strong>
+          <p>针对无界实景场景，构建 3D TSDF 网格，实现极速距离查询。基于距离 $d_i$ 与场景半径 $R_{scene}$ 计算空间权重 $w_{spatial} = 1 - \exp\left(-\gamma \cdot \frac{d_i}{R_{scene}}\right)$。</p>
+        </div>
+      </div>
+
+      <div class="method-item">
+        <div class="method-icon">📏</div>
+        <div>
+          <strong>尺度先验 (Scale Prior)</strong>
+          <p>针对为拟合高光边缘而生成的异常拉长高斯伪影，引入局部物理尺度惩罚 $w_{scale} = \frac{\max(s_i)}{R_{scene}}$，有效抑制非实体区域的过拟合。</p>
+        </div>
+      </div>
+
+      <div class="method-item">
+        <div class="method-icon">⚖️</div>
+        <div>
+          <strong>联合正则化 (Dual Penalty)</strong>
+          <p>将正则化损失项定义为所有高斯球不透明度 $o_i$ 的加权期望：$\mathcal{L}_{opacity} = \frac{1}{N} \sum_{i=1}^{N} o_i \cdot (w_{spatial} + \lambda \cdot w_{scale})$。</p>
+        </div>
+      </div>
+
+      <div class="method-item">
+        <div class="method-icon">⚡</div>
+        <div>
+          <strong>极速网格查询 (O(1) Query)</strong>
+          <p>通过构建 3D TSDF 网格进行预计算，将计算密集的 KNN 邻域搜索转化为时间复杂度为 $O(1)$ 的张量查表，不仅未增加耗时，反而实现约 6% 的训练加速。</p>
+        </div>
+      </div>
+    </div>
+
+    <h2 class="section-title">视觉保真与 3D 几何纯净度</h2>
+    <p class="center-text">
+      为直观验证算法对悬浮伪影的抑制能力，本节采用纯黑背景渲染基准。在剔除背景掩盖后，本文方法提取的几何结构呈现出显著的边界锐度与纯净度。
+    </p>
+
+    <div class="compare-section" style="margin-top: 3rem;">
+      <h3>场景一：Lego (标准合成场景)</h3>
+      <p class="desc">Baseline 存在大量弥散噪点；本文方法剔除冗余参数的同时，机械臂与履带的精细结构未出现任何劣化。</p>
+      <div class="compare-grid">
+        <div>
+          <img src="paper_figures_black/lego_baseline.png" alt="Lego Baseline" onerror="this.src='https://via.placeholder.com/600x400?text=Lego+Baseline'">
+          <span>Baseline (原版 3DGS - 存在弥散噪点)</span>
+        </div>
+        <div>
+          <img src="paper_figures_black/lego_ours.png" alt="Lego Ours" onerror="this.src='https://via.placeholder.com/600x400?text=Lego+Ours'">
+          <span>Ours (本文方法 - 几何结构高度纯净)</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="compare-section" style="margin-top: 3rem;">
+      <h3>场景二：Yixian (大尺度无界实景航拍)</h3>
+      <p class="desc">Baseline 妥协于庞大的远景天空伪影网络。本文方法精准实施空间截断，剔除逾 130 万非物理结构高斯球。</p>
+      <div class="compare-grid">
+        <div>
+          <img src="paper_figures_real/yixian_baseline.png" alt="Yixian Baseline" onerror="this.src='https://via.placeholder.com/600x400?text=Yixian+Baseline'">
+          <span>Baseline (原版 3DGS)</span>
+        </div>
+        <div>
+          <img src="paper_figures_real/yixian_ours.png" alt="Yixian Ours" onerror="this.src='https://via.placeholder.com/600x400?text=Yixian+Ours'">
+          <span>Ours (本文方法)</span>
+        </div>
+      </div>
+    </div>
+
+    <h2 class="section-title">核心实验结论</h2>
+    <p class="center-text">
+      在 <strong>NVIDIA RTX 5090</strong> 上的严格测试表明：<br><br>
+      <strong>鲁棒的物理剪枝：</strong> 合成场景平均降低 18.9% 模型存储，大尺度无界实景实现了 26.2% 的体积压缩，生成的纯净点云可直接服务于机器人导航。<br>
+      <strong>保真度提升：</strong> 在大幅削减冗余参数的基础上，合成集平均 PSNR 逆势微幅提升至 33.68 dB。
+    </p>
+
+    <h2 class="section-title">实时渲染演示</h2>
+    <div class="interactive-viewer-section">
+      <p class="viewer-desc">鼠标拖拽/滚轮以在空间中漫游 (预留 WebGL/Splat 播放器位置)</p>
+      <div class="viewer-container">
+        <img src="https://via.placeholder.com/1200x500?text=3D+Gaussian+Splatting+Interactive+Viewer+Area" alt="3D Viewer Placeholder" style="width: 100%; display: block;">
+      </div>
+    </div>
+
+  </main>
+
+  <footer>
+    <p>&copy; 2026 张成玮 (中山大学). 专注具身智能、边缘计算与机器人视觉.</p>
+  </footer>
+
+</body>
+</html>
