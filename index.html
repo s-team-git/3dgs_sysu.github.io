@@ -99,49 +99,31 @@
     ========================================================= */
 
     .hero-video-wrapper {
-
       width: 100%;
       max-width: 1280px;
-
-      margin:
-        0 auto
-        50px auto;
-
+      margin: 0 auto 50px auto;
       border-radius: 22px;
-
       overflow: hidden;
-
       background: #000;
-
       position: relative;
-
       box-shadow:
         0 18px 45px rgba(0,0,0,0.18),
         0 6px 18px rgba(0,0,0,0.10);
     }
 
     .hero-video {
-
       width: 100%;
       height: auto;
-
       display: block;
-
       object-fit: contain;
-
       background: #000;
     }
 
     .hero-video-wrapper::after {
-
       content: "";
-
       position: absolute;
-
       inset: 0;
-
       pointer-events: none;
-
       background:
         linear-gradient(
           to bottom,
@@ -155,7 +137,6 @@
     ========================================================= */
 
     @media screen and (max-width: 768px) {
-
       .title.is-1 {
         font-size: 1.9rem;
       }
@@ -200,9 +181,12 @@
           preload="auto"
           poster="./assets/teaser.png">
 
-          <!-- MP4 -->
+          <!-- MP4 Fallback (Safari/iOS 最需要这个) -->
+          <source src="./assets/yixian_baseline.mp4" type="video/mp4">
+          <!-- WebM (Chrome/Firefox 优先加载) -->
           <source src="./assets/yixian_baseline.webm" type="video/webm">
-          <!-- FALLBACK -->
+          
+          <!-- FALLBACK TEXT -->
           Your browser does not support the video tag.
 
         </video>
@@ -228,34 +212,22 @@
 
           <!-- REPORT -->
           <span class="link-block">
-
-            <a href="#"
-               class="external-link button is-normal is-rounded is-dark">
-
+            <a href="#" class="external-link button is-normal is-rounded is-dark">
               <span class="icon">
                 <i class="fas fa-file-pdf"></i>
               </span>
-
               <span>Report</span>
-
             </a>
-
           </span>
 
           <!-- CODE -->
           <span class="link-block">
-
-            <a href="https://github.com/s-team-git"
-               class="external-link button is-normal is-rounded is-dark">
-
+            <a href="https://github.com/s-team-git" class="external-link button is-normal is-rounded is-dark">
               <span class="icon">
                 <i class="fab fa-github"></i>
               </span>
-
               <span>Code</span>
-
             </a>
-
           </span>
 
         </div>
@@ -524,9 +496,8 @@
                playsinline
                controls>
 
-          <source
-            src="./assets/yixian_baseline.webm"
-            type="video/webm">
+          <source src="./assets/yixian_baseline.mp4" type="video/mp4">
+          <source src="./assets/yixian_baseline.webm" type="video/webm">
 
         </video>
 
@@ -546,9 +517,8 @@
                playsinline
                controls>
 
-          <source
-            src="./assets/yixian_ours.webm"
-            type="video/webm">
+          <source src="./assets/yixian_ours.mp4" type="video/mp4">
+          <source src="./assets/yixian_ours.webm" type="video/webm">
 
         </video>
 
