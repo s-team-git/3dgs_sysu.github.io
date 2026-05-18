@@ -12,137 +12,359 @@
   <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 
   <style>
-    body { font-family: 'Google Sans', sans-serif; }
-    .title.is-1 { font-size: 2.5rem; font-weight: 700; margin-bottom: 20px;}
-    .publication-links { margin-top: 20px; }
-    .link-block a { margin: 5px; border-radius: 20px; background-color: #363636; color: white; padding: 10px 20px; text-decoration: none; display: inline-block; transition: all 0.2s ease;}
-    .link-block a:hover { background-color: #4a4a4a; transform: translateY(-2px); }
-    .abstract-text { font-size: 1.1rem; line-height: 1.6; text-align: justify; }
-    .method-image { max-width: 80%; margin: 0 auto; display: block; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
-    .compare-media { width: 100%; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.08); display: block; }
-    .caption { text-align: center; color: #666; font-size: 0.95rem; margin-top: 10px; }
+    body { 
+      font-family: 'Google Sans', sans-serif;
+      background: #ffffff;
+    }
+
+    .title.is-1 { 
+      font-size: 2.5rem; 
+      font-weight: 700; 
+      margin-bottom: 20px;
+    }
+
+    .publication-links { 
+      margin-top: 20px; 
+    }
+
+    .link-block a { 
+      margin: 5px; 
+      border-radius: 20px; 
+      background-color: #363636; 
+      color: white; 
+      padding: 10px 20px; 
+      text-decoration: none; 
+      display: inline-block; 
+      transition: all 0.2s ease;
+    }
+
+    .link-block a:hover { 
+      background-color: #4a4a4a; 
+      transform: translateY(-2px); 
+    }
+
+    .abstract-text { 
+      font-size: 1.1rem; 
+      line-height: 1.6; 
+      text-align: justify; 
+    }
+
+    .method-image { 
+      max-width: 80%; 
+      margin: 0 auto; 
+      display: block; 
+      border-radius: 10px; 
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1); 
+    }
+
+    .compare-media { 
+      width: 100%; 
+      border-radius: 8px; 
+      box-shadow: 0 4px 10px rgba(0,0,0,0.08); 
+      display: block; 
+    }
+
+    .caption { 
+      text-align: center; 
+      color: #666; 
+      font-size: 0.95rem; 
+      margin-top: 10px; 
+    }
+
+    /* ===== HERO VIDEO ===== */
+    .hero-video-wrapper {
+      width: 100%;
+      margin: 0 auto 40px auto;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 10px 35px rgba(0,0,0,0.12);
+      background: #000;
+      position: relative;
+    }
+
+    .hero-video {
+      width: 100%;
+      height: auto;
+      display: block;
+      object-fit: cover;
+    }
+
+    .hero-video-wrapper::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        to bottom,
+        rgba(0,0,0,0.08),
+        rgba(0,0,0,0.02)
+      );
+      pointer-events: none;
+    }
+
+    @media screen and (max-width: 768px) {
+      .title.is-1 {
+        font-size: 1.9rem;
+      }
+
+      .hero-video-wrapper {
+        border-radius: 14px;
+      }
+    }
   </style>
 </head>
+
 <body>
 
+<!-- ================= HERO TITLE ================= -->
 <section class="hero">
   <div class="hero-body">
     <div class="container is-max-desktop text-center" style="text-align: center;">
-      <h1 class="title is-1 publication-title">Lightweight 3DGS:<br>Physical Constraint Pruning via Spatio-Scale Dual Priors</h1>
+      
+      <!-- ===== TOP VIDEO ===== -->
+      <div class="hero-video-wrapper">
+        <video 
+          class="hero-video"
+          autoplay 
+          muted 
+          loop 
+          playsinline 
+          controls>
+          <source src="./assets/ALL.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+      </div>
+
+      <h1 class="title is-1 publication-title">
+        Lightweight 3DGS:<br>
+        Physical Constraint Pruning via Spatio-Scale Dual Priors
+      </h1>
       
       <div class="column has-text-centered">
         <div class="publication-links">
+
           <span class="link-block">
             <a href="#" class="external-link button is-normal is-rounded is-dark">
-              <span class="icon"><i class="fas fa-file-pdf"></i></span>
+              <span class="icon">
+                <i class="fas fa-file-pdf"></i>
+              </span>
               <span>Report</span>
             </a>
           </span>
+
           <span class="link-block">
             <a href="https://github.com/s-team-git" class="external-link button is-normal is-rounded is-dark">
-              <span class="icon"><i class="fab fa-github"></i></span>
+              <span class="icon">
+                <i class="fab fa-github"></i>
+              </span>
               <span>Code</span>
             </a>
           </span>
+
         </div>
       </div>
+
     </div>
   </div>
 </section>
 
+<!-- ================= TEASER ================= -->
 <section class="hero teaser">
   <div class="container is-max-desktop">
     <div class="hero-body">
-      <img src="./assets/teaser.png" class="method-image" alt="Teaser Image" onerror="this.style.display='none'">
-      <h2 class="subtitle has-text-centered" style="margin-top: 20px; line-height: 1.5;">
+
+      <img 
+        src="./assets/teaser.png" 
+        class="method-image" 
+        alt="Teaser Image" 
+        onerror="this.style.display='none'">
+
+      <h2 
+        class="subtitle has-text-centered" 
+        style="margin-top: 20px; line-height: 1.5;">
+        
         Achieving highly pure 3D geometric topology and significant storage reduction by eliminating over 1.3 million floating artifacts in unbounded scenes.
+      
       </h2>
+
     </div>
   </div>
 </section>
 
+<!-- ================= ABSTRACT ================= -->
 <section class="section">
   <div class="container is-max-desktop">
+
     <div class="columns is-centered has-text-centered">
       <div class="column is-four-fifths">
+
         <h2 class="title is-3">Abstract</h2>
+
         <div class="content has-text-justified abstract-text">
+
           <p>
             While 3D Gaussian Splatting (3DGS) demonstrates exceptional rendering efficiency in novel view synthesis tasks, its underlying optimization mechanism exhibits significant geometric flaws in unconstrained real-world mapping. 3DGS tends to generate a massive amount of redundant, highly elongated Gaussian ellipsoids (floating and specular artifacts) in blank areas. This not only leads to excessive parameter bloat and inefficient memory usage but also causes severe physical geometric distortions.
           </p>
+
           <p>
             This study proposes a computationally lightweight and efficient <strong>Spatio-Scale Dual Distance-Aware Regularization</strong> strategy. Without altering the underlying CUDA rasterization architecture of 3DGS, it achieves a paradigm shift from "pure photometric fitting" to "physical geometric fidelity" by introducing spatial and scale priors. Experiments demonstrate that our method reduces model storage by 18.9% in synthetic scenes and achieves a 26.2% volume compression in large-scale unbounded real-world scenes, resulting in highly pure 3D assets suitable for memory-constrained applications.
           </p>
+
         </div>
       </div>
     </div>
+
   </div>
 </section>
 
+<!-- ================= METHOD ================= -->
 <section class="section">
   <div class="container is-max-desktop">
+
     <div class="columns is-centered">
       <div class="column is-full-width">
+
         <h2 class="title is-3 has-text-centered">Method</h2>
         
-        <img src="./assets/pipeline.png" class="method-image" alt="Pipeline Diagram" style="margin-bottom: 30px;" onerror="this.style.display='none'">
+        <img 
+          src="./assets/pipeline.png" 
+          class="method-image" 
+          alt="Pipeline Diagram" 
+          style="margin-bottom: 30px;" 
+          onerror="this.style.display='none'">
         
-        <div class="content has-text-justified" style="font-size: 1.1rem; line-height: 1.6;">
-          <p>To address floating artifacts, we designed a dual prior regularization term:</p>
+        <div 
+          class="content has-text-justified" 
+          style="font-size: 1.1rem; line-height: 1.6;">
+
+          <p>
+            To address floating artifacts, we designed a dual prior regularization term:
+          </p>
+
           <ul>
-            <li style="margin-bottom: 10px;"><strong>Spatial Prior:</strong> For unbounded real-world scenes, a 3D TSDF grid is constructed to achieve ultra-fast distance querying. The spatial weight is defined as: <br>$$ w_{spatial} = 1 - \exp\left(-\gamma \cdot \frac{d_i}{R_{scene}}\right) $$</li>
-            <li style="margin-bottom: 10px;"><strong>Scale Prior:</strong> To suppress abnormally elongated Gaussian artifacts generated to fit specular edges, a local physical scale penalty is introduced: <br>$$ w_{scale} = \frac{\max(s_i)}{R_{scene}} $$</li>
-            <li style="margin-bottom: 10px;"><strong>Dual Penalty:</strong> The final loss function introduces a hard truncation mechanism, forcing Gaussians in non-entity regions to trigger the native `prune` mechanism during gradient updates: <br>$$ \mathcal{L}_{opacity} = \frac{1}{N} \sum_{i=1}^{N} o_i \cdot (w_{spatial} + \lambda \cdot w_{scale}) $$</li>
+
+            <li style="margin-bottom: 10px;">
+              <strong>Spatial Prior:</strong> 
+              For unbounded real-world scenes, a 3D TSDF grid is constructed to achieve ultra-fast distance querying. 
+              The spatial weight is defined as:
+              <br>
+              $$ w_{spatial} = 1 - \exp\left(-\gamma \cdot \frac{d_i}{R_{scene}}\right) $$
+            </li>
+
+            <li style="margin-bottom: 10px;">
+              <strong>Scale Prior:</strong> 
+              To suppress abnormally elongated Gaussian artifacts generated to fit specular edges, a local physical scale penalty is introduced:
+              <br>
+              $$ w_{scale} = \frac{\max(s_i)}{R_{scene}} $$
+            </li>
+
+            <li style="margin-bottom: 10px;">
+              <strong>Dual Penalty:</strong> 
+              The final loss function introduces a hard truncation mechanism, forcing Gaussians in non-entity regions to trigger the native `prune` mechanism during gradient updates:
+              <br>
+              $$ \mathcal{L}_{opacity} = \frac{1}{N} \sum_{i=1}^{N} o_i \cdot (w_{spatial} + \lambda \cdot w_{scale}) $$
+            </li>
+
           </ul>
+
         </div>
+
       </div>
     </div>
+
   </div>
 </section>
 
+<!-- ================= RESULTS ================= -->
 <section class="section">
   <div class="container is-max-desktop">
-    <h2 class="title is-3 has-text-centered" style="margin-bottom: 40px;">Results & Visualizations</h2>
+
+    <h2 
+      class="title is-3 has-text-centered" 
+      style="margin-bottom: 40px;">
+      Results & Visualizations
+    </h2>
     
     <div class="columns is-centered">
+
       <div class="column is-half">
-        <img src="./assets/lego_baseline.png" class="compare-media" alt="Lego Baseline" onerror="this.src='https://via.placeholder.com/500x300?text=Place+lego_baseline.png'">
-        <p class="caption">Baseline: Severe floating artifacts and scattered noise</p>
+
+        <img 
+          src="./assets/lego_baseline.png" 
+          class="compare-media" 
+          alt="Lego Baseline" 
+          onerror="this.src='https://via.placeholder.com/500x300?text=Place+lego_baseline.png'">
+
+        <p class="caption">
+          Baseline: Severe floating artifacts and scattered noise
+        </p>
+
       </div>
+
       <div class="column is-half">
-        <img src="./assets/lego_ours.png" class="compare-media" alt="Lego Ours" onerror="this.src='https://via.placeholder.com/500x300?text=Place+lego_ours.png'">
-        <p class="caption"><strong>Ours: Highly pure geometric structures</strong></p>
+
+        <img 
+          src="./assets/lego_ours.png" 
+          class="compare-media" 
+          alt="Lego Ours" 
+          onerror="this.src='https://via.placeholder.com/500x300?text=Place+lego_ours.png'">
+
+        <p class="caption">
+          <strong>Ours: Highly pure geometric structures</strong>
+        </p>
+
       </div>
+
     </div>
 
     <div class="columns is-centered" style="margin-top: 40px;">
+
       <div class="column is-half">
-        <video class="compare-media" autoplay loop muted playsinline>
+
+        <video class="compare-media" autoplay loop muted playsinline controls>
           <source src="./assets/yixian_baseline.webm" type="video/webm">
           Your browser does not support the video tag.
         </video>
-        <p class="caption">Baseline (Real-world Scene): Massive cloudy artifacts in the sky</p>
+
+        <p class="caption">
+          Baseline (Real-world Scene): Massive cloudy artifacts in the sky
+        </p>
+
       </div>
+
       <div class="column is-half">
-        <video class="compare-media" autoplay loop muted playsinline>
+
+        <video class="compare-media" autoplay loop muted playsinline controls>
           <source src="./assets/yixian_ours.webm" type="video/webm">
           Your browser does not support the video tag.
         </video>
-        <p class="caption"><strong>Ours (Real-world Scene): Precise pruning, 26.2% volume reduction</strong></p>
+
+        <p class="caption">
+          <strong>Ours (Real-world Scene): Precise pruning, 26.2% volume reduction</strong>
+        </p>
+
       </div>
+
     </div>
 
   </div>
 </section>
 
+<!-- ================= FOOTER ================= -->
 <footer class="footer" style="margin-top: 40px; padding-bottom: 40px;">
+
   <div class="container">
     <div class="content has-text-centered">
+
       <p style="color: #888; font-size: 0.9rem;">
-        Website template inspired by <a href="https://github.com/nerfies/nerfies.github.io" style="color: #666;">Nerfies</a>.
+        Website template inspired by 
+        <a href="https://github.com/nerfies/nerfies.github.io" style="color: #666;">
+          Nerfies
+        </a>.
       </p>
+
     </div>
   </div>
+
 </footer>
 
 </body>
